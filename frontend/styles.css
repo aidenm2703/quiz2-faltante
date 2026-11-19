@@ -74,3 +74,14 @@ tbody tr:hover{background:#f6faf9}
 .demo-users button span{grid-column:1/-1}
 .demo-users code{justify-self:end}
 @media(max-width:540px){nav{margin:16px 0 24px}nav a{padding:7px 9px;font-size:.86rem}.demo-users button{grid-template-columns:1fr}.demo-users code{justify-self:start}}
+.dashboard-detail{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:14px}
+.chart-header{display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.chart-header h2{margin:0}
+.chart-bars,#top-alerts{list-style:none;margin:16px 0 0;padding:0}
+.chart-bars li{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(40px,2fr) auto;gap:10px;align-items:center;margin:13px 0;font-size:.88rem}
+.chart-bars li strong{min-width:4.5ch;text-align:right;font-variant-numeric:tabular-nums}
+.chart-track{height:12px;border-radius:20px;background:#e5eeef;overflow:hidden}
+.chart-bar{background:#27806a;height:100%;border-radius:20px}
+.chart-bar.below-target{background:#af6830}
+#top-alerts li{padding:10px 12px;border-left:3px solid #bc7943;background:#faf3eb;border-radius:4px}
+@media(max-width:860px){.dashboard-detail{grid-template-columns:1fr}}

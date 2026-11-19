@@ -1,0 +1,41 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presentación · Control de inventario</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#183e32;color:#eef7ef;font-family:system-ui,sans-serif}
+section{min-height:83vh;padding:10vh 10vw 5vh;display:grid;align-content:center;gap:12px}
+h1{font-size:clamp(2.4rem,7vw,6rem);line-height:1.03;margin:0;letter-spacing:-.055em}
+p{font-size:clamp(1.2rem,3vw,2.4rem);margin:0;max-width:29ch;color:#ddeddf}
+details{border-top:1px solid #80a794;margin-top:25px;padding-top:12px;max-width:65ch;color:#ddeddf}
+summary{cursor:pointer}footer{display:flex;gap:12px;padding:12px 10vw;align-items:center}
+button{padding:8px 12px;border:0;border-radius:6px;color:#183e32;background:#dcebdc;font:inherit}
+[hidden]{display:none!important}
+@media print{body{background:#183e32;print-color-adjust:exact}section[hidden]{display:grid!important}section{break-after:page;min-height:175mm}section:last-of-type{break-after:auto}footer{display:none}@page{size:A4 landscape;margin:0}}
+</style>
+<section ><div>0:00–0:45</div><h1>Control de inventario</h1><p>Constructora Del Valle S.A.</p><p>Equipo e integrantes · completar</p><details><summary>Notas del equipo</summary>Presentar al equipo y explicar que el prototipo responde al caso de una constructora con compras distribuidas entre Obras, Mantenimiento y Bodega Central.</details></section>
+<section hidden><div>0:45–2:00</div><h1>Fugas de valor en compras</h1><p>₡223 000 de sobreprecio en octubre</p><p>₡1 483 000 de fuga si se confirma OC-1042 como duplicado</p><details><summary>Notas del equipo</summary>Explicar el precio contratado como referencia y la proyección condicional de ₡17 796 000 al año. Pedir evidencia de requisición y recepción antes de confirmar un duplicado.</details></section>
+<section hidden><div>2:00–3:15</div><h1>Stock y punto de reorden</h1><p>Arena · 14 m³ frente a un PR de 20 m³</p><p>Block · 2 800 unidades frente a un PR de 3 600</p><details><summary>Notas del equipo</summary>Justificar prioridad de arena por su cobertura relativa de 70 %, frente a 77,8 % del block. Explicar demanda durante el plazo y stock de seguridad.</details></section>
+<section hidden><div>3:15–4:45</div><h1>Arquitectura</h1><p>Panel web → API REST de Express → SQLite</p><p>Materiales, ubicaciones, órdenes y movimientos</p><details><summary>Notas del equipo</summary>Mostrar routes y controllers en cada src. Explicar cómo se suma el saldo a partir de movimientos y cómo la línea de OC enlaza la entrada con el proveedor.</details></section>
+<section hidden><div>4:45–8:15</div><h1>Demostración en vivo</h1><p>Registrar una salida de 30 sacos de cemento</p><p>Revisar alerta, historial y pares de OC</p><details><summary>Notas del equipo</summary>Con una base nueva, seleccionar el usuario de prueba bodega, iniciar sesión y confirmar 190 sacos en Bodega Central. En Movimientos registrar salida de 30 con vale VS-DEMO-01. En Alertas buscar cemento: 160 frente a 165. Mostrar el historial, la entrada ligada a OC-1061 y el par OC-1041/OC-1042 en Órdenes.</details></section>
+<section hidden><div>8:15–10:00</div><h1>Aprendizajes</h1><p>Los códigos comunes permiten negociar por volumen</p><p>Cada movimiento explica un cambio de saldo</p><details><summary>Notas del equipo</summary>Explicar que una alerta de reposición apoya la planificación y una coincidencia de compra guía la revisión humana. Mencionar la prueba del saldo igual al PR y la protección que impide retirar más de lo disponible.</details></section>
+<footer><button id="back">Anterior</button><span id="page" aria-live="polite"></span><button id="next">Siguiente</button></footer>
+<script>
+const slides=[...document.querySelectorAll('section')];
+const back=document.querySelector('#back');
+const next=document.querySelector('#next');
+let current=0;
+function show(index){
+  slides[current].hidden=true;
+  current=Math.max(0,Math.min(slides.length-1,index));
+  slides[current].hidden=false;
+  document.querySelector('#page').textContent=(current+1)+' / '+slides.length;
+  back.disabled=current===0;
+  next.disabled=current===slides.length-1;
+}
+back.onclick=()=>show(current-1);
+next.onclick=()=>show(current+1);
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')show(current+1);
+  if(e.key==='ArrowLeft')show(current-1);
+});
+show(0);
+</script></html>

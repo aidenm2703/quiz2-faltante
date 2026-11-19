@@ -1,0 +1,106 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>Informe · Constructora Del Valle</title>
+<style>
+@page{size:A4;margin:15mm 16mm}
+*{box-sizing:border-box}body{font:12px/1.46 Arial,sans-serif;color:#183029;max-width:178mm;margin:auto}
+section{break-after:page}section:last-child{break-after:auto}
+h1{font-size:28px;margin:0 0 12px;line-height:1.12}h2{font-size:21px;margin:0 0 10px}h3{font-size:14px;margin:15px 0 5px}
+p{margin:7px 0}table{width:100%;border-collapse:collapse;margin:10px 0;font-size:11px}
+td,th{padding:6px 7px;text-align:left;border-bottom:1px solid #cfddd4;vertical-align:top}
+th{background:#deeee4;color:#173f31}tr{break-inside:avoid}
+.kicker{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#3a6254;border-top:4px solid #28644e;padding-top:8px;margin:0 0 15px}
+.flow{display:flex;gap:4px;align-items:center;margin:12px 0}.flow b{background:#e3f0e8;padding:7px;flex:1;text-align:center;font-size:10px}
+.note{background:#ebf2ec;padding:9px 12px}li{margin:4px 0}svg{width:100%;height:auto;display:block;margin:10px 0}
+</style>
+<section><div class="kicker">Quiz #2 · Análisis de compras</div>
+<h1>Gestión de inventarios<br>Constructora Del Valle S.A.</h1>
+<p>Equipo ___________________________________________</p>
+<p>Integrantes _________________________________________________________________</p>
+<h2>A1 · Circuito de compra y matriz de aprobación</h2>
+<div class="flow" aria-label="Circuito de compra"><b>Requisición</b> → <b>Aprobación</b> → <b>Orden de compra</b> → <b>Recepción</b> → <b>Factura</b> → <b>Pago</b></div>
+<table><thead><tr><th>Etapa</th><th>Responsable</th><th>Documento</th><th>Control</th></tr></thead><tbody>
+<tr><td>Requisición</td><td>Área solicitante</td><td>Requisición interna</td><td>Verifica necesidad, existencias, código del insumo y centro de costo.</td></tr>
+<tr><td>Aprobación</td><td>Jefatura o gerencia según monto</td><td>Aprobación registrada y expediente de cotizaciones</td><td>Valida presupuesto, monto agregado y cotizaciones. Separa solicitante y aprobador.</td></tr>
+<tr><td>Orden de compra</td><td>Compras</td><td>OC numerada</td><td>Verifica proveedor, contrato, importe y aprobación antes de emitir.</td></tr>
+<tr><td>Recepción</td><td>Bodega u obra receptora</td><td>Acta de recepción</td><td>Cuenta e inspecciona contra la OC. Registra parciales y rechazos.</td></tr>
+<tr><td>Factura</td><td>Cuentas por pagar</td><td>Factura contabilizada</td><td>Concilia OC, recepción y factura (three-way match) y verifica que la factura sea única.</td></tr>
+<tr><td>Pago</td><td>Tesorería</td><td>Comprobante y asiento</td><td>Valida vencimiento, cuenta bancaria y aprobación. Concilia contra el banco.</td></tr>
+</tbody></table>
+<h3>Matriz propuesta por la empresa</h3>
+<table><tr><th>Monto</th><th>Aprueba</th><th>Cotizaciones</th></tr>
+<tr><td>Hasta ₡250 000</td><td>Jefatura del área solicitante</td><td>1</td></tr>
+<tr><td>₡250 001 a ₡2 000 000</td><td>Jefatura de Compras</td><td>2</td></tr>
+<tr><td>₡2 000 001 a ₡10 000 000</td><td>Gerencia Financiera</td><td>3</td></tr>
+<tr><td>Más de ₡10 000 000</td><td>Gerencia General</td><td>3 + comité de compras</td></tr></table>
+<p>Los umbrales escalan el control conforme aumenta el compromiso. Para aplicarlos de forma consistente, usar el monto total con impuestos, volver a aprobar cambios de alcance y dejar por escrito toda excepción de cotización.</p>
+<p class="note">Fraccionar una necesidad permite evadir cotizaciones y el nivel de autorización, y reduce el poder de negociación. Vincular las OC a su requisición o proyecto, revisar compras de la misma necesidad en una ventana de 30 días y escalar al nivel que corresponda al monto acumulado.</p>
+</section>
+<section><div class="kicker">Quiz #2 · Análisis de compras</div><h2>A2 · Taxonomía de dos niveles</h2>
+<table><tr><th>#</th><th>Descripción ERP</th><th>Categoría › Subcategoría</th><th>Código</th><th>Cant.</th><th>Precio</th></tr>
+<tr><td>1</td><td>Cemento gris 50 kg</td><td>Construcción › Cementos</td><td>CEM-GRIS-50</td><td>200</td><td>₡6 450</td></tr>
+<tr><td>2</td><td>Saco cemento uso general</td><td>Construcción › Cementos</td><td>CEM-GRIS-50</td><td>40</td><td>₡7 100</td></tr>
+<tr><td>3</td><td>CEM-GRIS-50</td><td>Construcción › Cementos</td><td>CEM-GRIS-50</td><td>300</td><td>₡6 300</td></tr>
+<tr><td>4</td><td>Varilla #3 grado 40</td><td>Construcción › Acero de refuerzo</td><td>VAR-03</td><td>500</td><td>₡2 150</td></tr>
+<tr><td>5</td><td>Hierro 3/8 x 6 m</td><td>Construcción › Acero de refuerzo</td><td>VAR-03</td><td>60</td><td>₡2 600</td></tr>
+<tr><td>6</td><td>Guantes de nitrilo talla L</td><td>Seguridad › Protección de manos</td><td>GUA-NIT-L</td><td>100</td><td>₡850</td></tr>
+<tr><td>7</td><td>Guantes trabajo L</td><td>Seguridad › Protección de manos</td><td>GUA-TRAB-L</td><td>80</td><td>₡1 200</td></tr>
+<tr><td>8</td><td>Tubo PVC 1/2 SDR 13.5</td><td>Instalaciones › Tuberías PVC</td><td>PVC-012-SDR135</td><td>25</td><td>₡2 900</td></tr></table>
+<p>Para el cálculo, las líneas 1–3 representan el mismo cemento y las líneas 4–5 la misma varilla. Antes de consolidar el catálogo, Bodega debe verificar la presentación de la línea 2 y la longitud y grado de las líneas 4–5. Los dos guantes conservan códigos propios hasta confirmar sus especificaciones.</p>
+<table><tr><th>Material</th><th>Gasto observado</th><th>Gasto al menor precio</th><th>Ahorro</th></tr>
+<tr><td>Cemento</td><td>₡3 464 000</td><td>540 × ₡6 300 = ₡3 402 000</td><td>₡62 000</td></tr>
+<tr><td>Varilla</td><td>₡1 231 000</td><td>560 × ₡2 150 = ₡1 204 000</td><td>₡27 000</td></tr>
+<tr><th>Total</th><th>₡4 695 000</th><th>₡4 606 000</th><th>₡89 000</th></tr></table>
+<p>La clasificación reúne los alias de Obras, Mantenimiento y Bodega Central bajo el mismo código y unidad de compra. Así Compras puede ver cuánto consume la empresa, comparar precios de artículos equivalentes y comprometer un volumen consolidado a cambio de mejores condiciones. Con las descripciones dispersas del ERP, el volumen aparece repartido entre artículos y proveedores, por lo que se pierden economías de escala.</p>
+<h2>A3 · Gasto fuera de contrato y sobreprecio</h2>
+<p>Contrato vigente con Proveedor A. Cemento a ₡6 300 y varilla a ₡2 050. El sobreprecio se calcula como cantidad × diferencia unitaria. Incumplen tanto las compras a otro proveedor como las que exceden el precio acordado con A.</p>
+<table><tr><th>OC · Fecha</th><th>Proveedor · Cantidad</th><th>Precio</th><th>Total</th><th>Incumplimiento</th><th>Sobreprecio</th></tr>
+<tr><td>OC-1041 · 02/10</td><td>A · 200</td><td>₡6 450</td><td>₡1 290 000</td><td>Precio</td><td>₡30 000</td></tr>
+<tr><td>OC-1042 · 02/10</td><td>A · 200</td><td>₡6 450</td><td>₡1 290 000</td><td>Precio</td><td>₡30 000</td></tr>
+<tr><td>OC-1047 · 06/10</td><td>B · 40</td><td>₡7 100</td><td>₡284 000</td><td>Proveedor y precio</td><td>₡32 000</td></tr>
+<tr><td>OC-1050 · 08/10</td><td>C · 500</td><td>₡2 150</td><td>₡1 075 000</td><td>Proveedor y precio</td><td>₡50 000</td></tr>
+<tr><td>OC-1053 · 09/10</td><td>C · 480</td><td>₡2 150</td><td>₡1 032 000</td><td>Proveedor y precio</td><td>₡48 000</td></tr>
+<tr><td>OC-1058 · 13/10</td><td>D · 60</td><td>₡2 600</td><td>₡156 000</td><td>Proveedor y precio</td><td>₡33 000</td></tr>
+<tr><td>OC-1061 · 15/10</td><td>A · 300</td><td>₡6 300</td><td>₡1 890 000</td><td>Conforme</td><td>₡0</td></tr>
+<tr><th colspan="3">Total</th><th>₡7 017 000</th><th></th><th>₡223 000</th></tr></table>
+</section>
+<section><div class="kicker">Quiz #2 · Análisis de compras</div><h2>A3 · Duplicidad y fuga de valor</h2>
+<p>OC-1041 y OC-1042 coinciden en fecha, proveedor, artículo, área y cantidad. OC-1050 y OC-1053 ameritan revisión por compartir proveedor, área y artículo, con un día de diferencia y cantidades de 500 y 480 (4 %). Confirmar ambos casos con requisiciones y recepciones.</p>
+<p>El gasto fuera de contrato suma <strong>₡5 127 000</strong>, con ₡2 547 000 adjudicados a otros proveedores y ₡2 580 000 comprados a A a un precio superior al pactado. El monto mide gasto en incumplimiento.</p>
+<table><tr><th>Escenario</th><th>Fuga de octubre</th><th>Proyección × 12</th></tr>
+<tr><td>Todas las OC responden a necesidades válidas</td><td>₡223 000 en sobreprecio</td><td>₡2 676 000</td></tr>
+<tr><td>OC-1042 se confirma como duplicada</td><td>₡1 290 000 + ₡193 000 = <strong>₡1 483 000</strong></td><td><strong>₡17 796 000</strong></td></tr></table>
+<p>En el segundo escenario, el costo completo de OC-1042 ya incluye sus ₡30 000 de sobreprecio. La estimación anual supone doce meses con el patrón observado en octubre. El par de varilla queda pendiente de evidencia y se valora solo por su sobreprecio.</p>
+<ol><li>Advertir coincidencias de proveedor, código, cantidad y fecha al crear una OC y exigir justificación antes de liberar el par.</li><li>Precargar precios y proveedor del contrato vigente por código. Escalar cualquier desviación a Compras con justificación registrada.</li><li>Bloquear pagos con discrepancias entre OC, recepción y factura o con número de factura repetido para el mismo proveedor.</li></ol>
+<h2>A4 · Matriz ponderada de proveedores</h2>
+<p>Notas hipotéticas para proveedores ficticios. 1 representa desempeño deficiente y 5 el mejor desempeño. En riesgo, 5 indica menor exposición. Puntaje = suma de peso × nota.</p>
+<table><tr><th>Criterio</th><th>Peso</th><th>A</th><th>B</th><th>C</th><th>Justificación</th></tr>
+<tr><td>Precio</td><td>25 %</td><td>5</td><td>4</td><td>3</td><td>Controla costo directo.</td></tr>
+<tr><td>Calidad</td><td>20 %</td><td>4</td><td>5</td><td>4</td><td>Reduce rechazos y retrabajo.</td></tr>
+<tr><td>Cumplimiento de plazos</td><td>20 %</td><td>4</td><td>5</td><td>3</td><td>Evita frentes de obra detenidos.</td></tr>
+<tr><td>Crédito</td><td>15 %</td><td>3</td><td>4</td><td>5</td><td>Protege el flujo de caja.</td></tr>
+<tr><td>Posventa</td><td>10 %</td><td>4</td><td>4</td><td>3</td><td>Agiliza reposiciones.</td></tr>
+<tr><td>Riesgo de dependencia</td><td>10 %</td><td>3</td><td>4</td><td>4</td><td>Considera capacidad y continuidad del suministro.</td></tr>
+<tr><th>Total</th><th>100 %</th><th>4,00</th><th>4,40</th><th>3,60</th><th>Sobre 5</th></tr></table>
+<p>Para una próxima negociación, mantener a B como principal por calidad y cumplimiento, y calificar a A como alterno por precio. Concentrar el volumen habitual con B y reservar pedidos planificados para que A mantenga capacidad operativa. Las compras actuales siguen sujetas al contrato vigente.</p>
+</section>
+<section><div class="kicker">Quiz #2 · Inventario y solución técnica</div><h2>A5 · Stock de seguridad y punto de reorden</h2>
+<p>SS = (demanda máxima − demanda promedio) × tiempo de entrega. PR = demanda promedio × tiempo de entrega + SS.</p>
+<table><tr><th>Material</th><th>Promedio / Máximo</th><th>Entrega</th><th>Actual</th><th>SS</th><th>PR</th><th>Acción</th></tr>
+<tr><td>Cemento gris 50 kg</td><td>40 / 55 sacos</td><td>3 días</td><td>190</td><td>45</td><td>165</td><td>Vigilar</td></tr>
+<tr><td>Varilla #3</td><td>120 / 160 unid.</td><td>5 días</td><td>850</td><td>200</td><td>800</td><td>Vigilar</td></tr>
+<tr><td>Block 12 × 20 × 40</td><td>600 / 900 unid.</td><td>4 días</td><td>2 800</td><td>1 200</td><td>3 600</td><td>Reponer · 2</td></tr>
+<tr><td>Arena</td><td>6 / 10 m³</td><td>2 días</td><td>14</td><td>8</td><td>20</td><td>Reponer · 1</td></tr></table>
+<p>Arena tiene el 70 % de su PR y 2,33 días de consumo promedio. Block tiene el 77,8 % de su PR y 4,67 días de consumo promedio. Los faltantes hasta el PR son 6 m³ y 800 unidades, respectivamente.</p>
+<p>Registrar ID, tipo, fecha, usuario, código de material, cantidad y unidad, ubicación de origen y de destino según corresponda, y documento de respaldo. Cada entrada debe apuntar a la línea de OC y conservar su proveedor. El traslado debe vincular ambos sitios en un solo registro. Los lotes o partidas pueden añadirse cuando se requiera seguir la identidad física del material.</p>
+<h2>B · Control de inventario</h2>
+<p>El panel web consulta una API REST de Express. SQLite guarda materiales, órdenes, movimientos y catálogos. La vista de existencias agrega el historial por bodega u obra. La vista de alertas señala saldos estrictamente inferiores al PR. La regla de duplicidad usa el mismo proveedor y material, hasta tres días y diferencia de cantidad de hasta 10 % respecto a la mayor cantidad. Ambos umbrales se pueden configurar.</p>
+<h3>Diagrama entidad-relación</h3>
+<svg viewBox="0 0 680 230" role="img" aria-label="Proveedores uno a muchas órdenes, órdenes y materiales uno a muchas líneas, líneas, materiales y ubicaciones uno a muchos movimientos">
+<defs><marker id="flecha" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7z" fill="#3f6c59"/></marker></defs>
+<g fill="#e6f0e9" stroke="#719786"><rect x="15" y="12" width="146" height="42"/><rect x="267" y="12" width="146" height="42"/><rect x="517" y="12" width="146" height="42"/><rect x="15" y="125" width="146" height="42"/><rect x="267" y="125" width="146" height="42"/><rect x="517" y="125" width="146" height="42"/></g>
+<g fill="#183029" font-family="Arial" text-anchor="middle" font-size="12"><text x="88" y="29">Proveedores</text><text x="88" y="44">PK id</text><text x="340" y="29">Órdenes</text><text x="340" y="44">PK id · FK proveedor</text><text x="590" y="29">Líneas de OC</text><text x="590" y="44">PK id · FK orden, material</text><text x="88" y="142">Ubicaciones</text><text x="88" y="157">PK id</text><text x="340" y="142">Materiales</text><text x="340" y="157">PK id</text><text x="590" y="142">Movimientos</text><text x="590" y="157" font-size="9.5">PK id · FK material, sitios, línea</text><text x="213" y="25">1 : N</text><text x="465" y="25">1 : N</text><text x="550" y="93">1 : 0..N</text><text x="460" y="139">1 : N</text><text x="440" y="85">1 : N</text><text x="340" y="209">1 : N por origen y por destino</text></g>
+<g fill="none" stroke="#3f6c59" stroke-width="1.5" marker-end="url(#flecha)"><path d="M162 33H265"/><path d="M414 33H515"/><path d="M590 55V123"/><path d="M414 147H515"/><path d="M360 124V94H523V55"/><path d="M88 168V190H590V170"/></g></svg>
+<p>Una línea de OC puede vincularse con varias recepciones parciales. La tabla técnica de semillas registra la versión aplicada.</p>
+<h3>Conclusiones</h3>
+<p>Usar un código común facilita negociar y detectar fugas. El historial de movimientos permite reconstruir existencias y verificar su origen. En el caso base, arena y block requieren reposición en Bodega Central, y los pares de OC detectados requieren validación antes del pago.</p>
+<p><strong>Fuente:</strong> enunciado del Quiz #2. Equivalencias pendientes de verificar, matriz de proveedores y parámetros de demostración definidos para el ejercicio.</p>
+</section></html>

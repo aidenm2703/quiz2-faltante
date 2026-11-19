@@ -1,0 +1,1 @@
+{"name":"del-valle-api","private":true,"type":"module","engines":{"node":">=24"},"scripts":{"start":"node --env-file-if-exists=.env src/index.js","test":"node --test"},"dependencies":{"express":"5.2.1"}}

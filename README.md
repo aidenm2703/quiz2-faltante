@@ -31,7 +31,7 @@ En la pantalla inicial se muestran las cuentas de demostración. Al elegir una, 
 | bodega | DemoBodega2026! | Consultar y registrar movimientos |
 | consulta | DemoConsulta2026! | Solo consultas |
 
-El panel inicial muestra materiales, ubicaciones, alertas y posibles órdenes duplicadas. En Existencias puedes filtrar por ubicación y buscar por código o nombre. Estas cuentas públicas son para el prototipo local. SQLite guarda hashes de las contraseñas y el servidor asigna el usuario a cada movimiento a partir de la sesión de ocho horas.
+El panel inicial muestra materiales, ubicaciones, alertas y posibles órdenes duplicadas. La gráfica de cobertura compara el saldo con el punto de reorden por ubicación. La gráfica de actividad cuenta registros por tipo en las últimas siete fechas con movimientos. Estas cuentas públicas son para el prototipo local. SQLite guarda hashes de las contraseñas y el servidor asigna el usuario a cada movimiento a partir de la sesión de ocho horas.
 
 ## Arquitectura
 
@@ -57,6 +57,7 @@ El panel inicial muestra materiales, ubicaciones, alertas y posibles órdenes du
 | GET | /materiales/:id/historial | Movimientos, usuario, ubicaciones y OC de origen |
 | GET | /existencias | Saldo por material y ubicación |
 | GET | /ubicaciones y /proveedores | Catálogos |
+| GET | /movimientos/actividad | Conteo por fecha y tipo en las últimas siete fechas con actividad |
 | POST | /movimientos | Entrada, salida, traslado o ajuste |
 | GET / POST | /ordenes | Consultar o registrar OC |
 | GET | /ordenes/posibles-duplicados | Regla activa y pares sospechosos |
@@ -69,6 +70,13 @@ Con una sesión de `admin` o `bodega`, ejemplo de JSON para `POST /api/movimient
 ```
 
 En una base recién creada, esta salida deja el cemento de Bodega Central en 160 sacos, por debajo del PR de 165.
+
+## Recorrido de demostración
+
+1. Ingresa con `bodega`. En **Panel**, cambia la ubicación en la gráfica de cobertura y observa los porcentajes. La segunda gráfica muestra cuántos movimientos de cada tipo se registraron por día.
+2. En **Existencias**, combina el filtro de ubicación, la búsqueda por código o nombre y el estado **Reponer**.
+3. En **Órdenes de compra**, filtra el historial por proveedor o busca por número de OC, área o material. El importe corresponde a las órdenes visibles.
+4. En **Alertas**, selecciona Bodega Central y descarga el CSV para compartir las filas filtradas. Para comprobar una alerta nueva, registra la salida del ejemplo anterior con una base recién creada.
 
 ## Verificar
 

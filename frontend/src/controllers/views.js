@@ -1,4 +1,5 @@
 import {api} from './api.js';
+import {exportCsv} from './exports.js';
 
 const nf=new Intl.NumberFormat('es-CR',{maximumFractionDigits:3});
 const crc=new Intl.NumberFormat('es-CR',{style:'currency',currency:'CRC'});
@@ -148,11 +149,30 @@ export async function orders(user) {
 }
 
 export async function alerts() {
-  const rows=await api('/alertas/reorden');
+  const [rows,sites]=await Promise.all([api('/alertas/reorden'),api('/ubicaciones')]);
   return root=>{
     root.innerHTML=title('Alertas de reorden','Saldos inferiores al punto de reorden, ordenados por cobertura relativa.')+
-      `<section class="panel">${table(['Ubicación','Material','Stock','Punto de reorden','Faltante'],
-        rows.map(r=>[r.ubicacion,r.nombre,nf.format(r.stock)+' '+r.unidad,nf.format(r.reorden),nf.format(r.faltante)]),
-        'Todas las existencias alcanzan el punto de reorden.')}</section>`;
+      `<section class="panel"><div class="chart-header"><label>Ubicación<select id="alert-site">
+      <option value="">Todas las ubicaciones</option>${options(sites)}</select></label>
+      <button type="button" id="export-alerts">Descargar CSV</button></div>
+      <p id="alert-count" role="status"></p><div id="alert-results"></div></section>`;
+    const site=root.querySelector('#alert-site');
+    const button=root.querySelector('#export-alerts');
+    const count=root.querySelector('#alert-count');
+    const results=root.querySelector('#alert-results');
+    const selected=()=>rows.filter(row=>!site.value || String(row.ubicacion_id)===site.value);
+    const headers=['Ubicación','Material','Unidad','Stock','Punto de reorden','Faltante'];
+    function render() {
+      const visible=selected();
+      count.textContent=nf.format(visible.length)+' alertas';
+      button.disabled=visible.length===0;
+      results.innerHTML=table(headers,visible.map(row=>[row.ubicacion,row.nombre,row.unidad,
+        nf.format(row.stock),nf.format(row.reorden),nf.format(row.faltante)]),'No hay alertas en la ubicación seleccionada.');
+    }
+    site.addEventListener('change',render);
+    button.addEventListener('click',()=>exportCsv('alertas-reorden.csv',[
+      headers,...selected().map(row=>[row.ubicacion,row.nombre,row.unidad,row.stock,row.reorden,row.faltante])
+    ]));
+    render();
   };
 }

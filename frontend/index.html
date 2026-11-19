@@ -8,10 +8,10 @@
 <script type="module" src="/src/main.js"></script>
 </head>
 <body>
-<header><div class="shell brand"><strong>DEL VALLE</strong><span>Constructora · Inventario</span><div id="account" hidden><span id="account-label"></span><button id="logout" type="button">Cerrar sesión</button></div></div></header>
-<main class="shell">
+<header><div class="shell brand"><div class="wordmark"><span class="brand-mark" aria-hidden="true">DV</span><div><strong>Del Valle</strong><span>Gestión de inventario</span></div></div><div id="account" hidden><span id="account-label"></span><button id="logout" type="button">Cerrar sesión</button></div></div></header>
+<main class="shell" id="main-content">
 <nav aria-label="Secciones" hidden><a href="#inicio">Panel</a><a href="#existencias">Existencias</a><a href="#movimientos">Movimientos</a><a href="#ordenes">Órdenes de compra</a><a href="#alertas">Alertas</a></nav>
-<p id="status" role="status" hidden></p><section id="app" aria-busy="true"></section>
+<p id="status" role="status" hidden></p><section id="app" aria-busy="true">Cargando inventario…</section>
 </main>
 </body>
 </html>

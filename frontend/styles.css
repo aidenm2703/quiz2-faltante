@@ -47,3 +47,30 @@ th{background:#e9f2eb;white-space:nowrap;color:#234c3f}
 .metric{display:grid;gap:7px;margin-bottom:0}.metric strong{font-size:2.5rem;line-height:1.1}.metric a{color:#21634f;font-weight:650}
 #top-alerts li{margin-bottom:7px}
 @media(max-width:740px){.login-layout{grid-template-columns:1fr}.welcome{min-height:auto}.brand{flex-wrap:wrap;gap:6px 15px;padding-block:12px}#account{margin-left:0}}
+:root{color-scheme:light;color:#172329;background:#f3f6f7;--ink:#172329;--muted:#51636b;--line:#dbe5e8;--accent:#146653}
+body{min-height:100vh;background:linear-gradient(180deg,#e8f0f0 0,#f3f6f7 260px)}
+header{background:#132832;border-bottom:3px solid #55aa90}
+.shell{max-width:1360px}
+.wordmark{display:flex;align-items:center;gap:12px}
+.wordmark strong,.wordmark div>span{display:block}
+.wordmark strong{letter-spacing:.01em;font-size:1.14rem}
+.wordmark div>span{font-size:.79rem}
+.wordmark .brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:#a3dfc8;color:#112f29;font-weight:800;font-size:.83rem}
+#main-content{padding-bottom:40px}
+nav{gap:6px;margin:24px 0 34px;background:#fff;border:1px solid var(--line);padding:6px;border-radius:13px}
+nav a{color:#3d545c;border:0;border-radius:8px;padding:8px 14px}
+nav a:hover{background:#eff5f5}
+nav a[aria-current]{background:#d9eee6;color:#174c3e}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1.09}
+p{color:var(--muted)}
+.panel,.login-panel{border-color:var(--line);box-shadow:0 3px 14px #17313d08}
+input,select{min-height:42px;border-color:#aebdc3}
+button{min-height:40px;padding-inline:14px}
+button:not(:disabled):hover{filter:brightness(.93)}
+th{background:#edf4f4;color:#36535c}
+tbody tr:hover{background:#f6faf9}
+.welcome{background:radial-gradient(ellipse at 85% 20%,#286953 0,transparent 62%),linear-gradient(150deg,#122a35,#184e43)}
+.demo-users button{grid-template-columns:auto 1fr;column-gap:12px}
+.demo-users button span{grid-column:1/-1}
+.demo-users code{justify-self:end}
+@media(max-width:540px){nav{margin:16px 0 24px}nav a{padding:7px 9px;font-size:.86rem}.demo-users button{grid-template-columns:1fr}.demo-users code{justify-self:start}}

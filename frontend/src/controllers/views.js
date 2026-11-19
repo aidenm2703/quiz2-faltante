@@ -21,7 +21,9 @@ export async function stock(user) {
   const [rows,sites]=await Promise.all([api('/existencias'),api('/ubicaciones')]);
   return root=>{
     root.innerHTML=title('Existencias','Consulta el saldo y el punto de reorden de cada material por ubicación.')+
-      `<div class="panel"><div class="fields"><label>Ubicación<select id="site">${options(sites)}</select></label><label>Buscar material<input id="search" type="search" placeholder="Código o nombre"></label></div><div id="stock"></div></div>
+      `<div class="panel"><div class="fields"><label>Ubicación<select id="site">${options(sites)}</select></label><label>Buscar material<input id="search" type="search" placeholder="Código o nombre"></label>
+      <label>Estado<select id="stock-state"><option value="all">Todos</option><option value="reorder">Reponer</option>
+      <option value="healthy">Disponible</option></select></label></div><p id="stock-count" role="status"></p><div id="stock"></div></div>
       <details class="panel"><summary>Registrar material</summary>${form('/materiales',
         text('Código','codigo')+text('Nombre','nombre')+text('Unidad','unidad')+numeric('Stock mínimo','minimo')+
         numeric('Stock máximo','maximo')+numeric('Demanda diaria promedio','demanda')+
@@ -29,16 +31,26 @@ export async function stock(user) {
     if (user.rol!=='admin') root.querySelector('details').remove();
     const site=root.querySelector('#site');
     const search=root.querySelector('#search');
+    const state=root.querySelector('#stock-state');
+    const count=root.querySelector('#stock-count');
     const normalize=value=>value.toLocaleLowerCase('es').normalize('NFD').replace(/\p{M}/gu,'');
     const render=()=>{
       const query=normalize(search.value.trim());
+      const visible=rows.filter(row=>{
+        const reorder=row.stock<row.reorden;
+        return row.ubicacion_id===Number(site.value) &&
+          normalize(row.codigo+' '+row.nombre).includes(query) &&
+          (state.value==='all' || reorder===(state.value==='reorder'));
+      });
+      count.textContent=nf.format(visible.length)+' de '+nf.format(rows.filter(row=>row.ubicacion_id===Number(site.value)).length)+' materiales';
       root.querySelector('#stock').innerHTML=table(['Código','Material','Saldo','Mín.','Máx.','Seguridad','Reorden','Estado'],
-        rows.filter(r=>r.ubicacion_id===Number(site.value) && normalize(r.codigo+' '+r.nombre).includes(query)).map(r=>[r.codigo,r.nombre,nf.format(r.stock)+' '+r.unidad,
+        visible.map(r=>[r.codigo,r.nombre,nf.format(r.stock)+' '+r.unidad,
           ...[r.minimo,r.maximo,r.seguridad,r.reorden].map(x=>nf.format(x)),r.stock<r.reorden?'Reponer':'Disponible']),
         'No se encontraron materiales.');
     };
     site.addEventListener('change',render);
     search.addEventListener('input',render);
+    state.addEventListener('change',render);
     render();
   };
 }

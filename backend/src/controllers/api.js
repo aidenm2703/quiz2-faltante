@@ -20,6 +20,9 @@ export function controllers(db,rule) {
       LEFT JOIN ubicaciones a ON a.id=m.origen LEFT JOIN ubicaciones b ON b.id=m.destino
       LEFT JOIN lineas l ON l.id=m.linea LEFT JOIN ordenes o ON o.id=l.orden
       LEFT JOIN proveedores p ON p.id=o.proveedor WHERE m.material=? ORDER BY m.fecha DESC,m.id DESC`),
+    activity:list(`SELECT fecha,tipo,COUNT(*) AS total FROM movimientos
+      WHERE fecha IN (SELECT DISTINCT fecha FROM movimientos ORDER BY fecha DESC LIMIT 7)
+      GROUP BY fecha,tipo ORDER BY fecha,tipo`),
     alerts:list('SELECT * FROM alertas ORDER BY stock/reorden,nombre,ubicacion_id'),
     orders:list(`SELECT o.id,o.numero,o.fecha,o.area,p.nombre AS proveedor,l.material,
       m.nombre AS articulo,l.cantidad,l.precio FROM ordenes o JOIN proveedores p ON p.id=o.proveedor

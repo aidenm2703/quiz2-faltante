@@ -1,9 +1,9 @@
 import {api} from './api.js';
-import {coverageChart} from './charts.js';
+import {coverageChart,activityChart} from './charts.js';
 
 export async function dashboard() {
-  const [materials,sites,alerts,duplicates,stock]=await Promise.all([
-    api('/materiales'),api('/ubicaciones'),api('/alertas/reorden'),api('/ordenes/posibles-duplicados'),api('/existencias')
+  const [materials,sites,alerts,duplicates,stock,activity]=await Promise.all([
+    api('/materiales'),api('/ubicaciones'),api('/alertas/reorden'),api('/ordenes/posibles-duplicados'),api('/existencias'),api('/movimientos/actividad')
   ]);
   const summaries=[
     ['Materiales registrados',materials.length,'existencias','Consultar existencias'],
@@ -20,8 +20,11 @@ export async function dashboard() {
         <label>Ubicación<select></select></label></div>
         <p>Saldo dividido por el punto de reorden. Una barra completa equivale al 100 %.</p>
         <ul class="chart-bars" aria-live="polite"></ul></section>
-      <section class="panel"><h2>Déficits prioritarios</h2><ul id="top-alerts"></ul></section></div>`;
+      <section class="panel"><h2>Déficits prioritarios</h2><ul id="top-alerts"></ul></section></div>
+      <section class="panel" id="activity"><h2>Actividad de movimientos</h2>
+      <p>Número de registros por tipo en las últimas siete fechas con actividad.</p><div class="activity-chart"></div></section>`;
     coverageChart(root.querySelector('#coverage'),stock,sites);
+    activityChart(root.querySelector('.activity-chart'),activity);
     const list=root.querySelector('#top-alerts');
     const amount=new Intl.NumberFormat('es-CR',{maximumFractionDigits:3});
     for (const alert of alerts.slice(0,5)) {

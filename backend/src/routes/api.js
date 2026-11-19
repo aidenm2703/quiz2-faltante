@@ -23,6 +23,7 @@ export function routes(db,rule) {
   router.get('/proveedores',c.suppliers);
   router.get('/existencias',c.stock);
   router.get('/alertas/reorden',c.alerts);
+  router.get('/movimientos/actividad',c.activity);
   router.post('/movimientos',authorize('admin','bodega'),c.addMovement);
   router.get('/ordenes',c.orders);
   router.post('/ordenes',authorize('admin'),c.addOrder);

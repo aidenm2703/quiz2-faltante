@@ -35,3 +35,44 @@ export function coverageChart(root,stock,sites) {
   location.addEventListener('change',render);
   render();
 }
+
+const types=[['entrada','Entradas'],['salida','Salidas'],['traslado','Traslados'],['ajuste','Ajustes']];
+
+export function activityChart(root,rows) {
+  if (!rows.length) {
+    root.textContent='Aún no hay movimientos registrados.';
+    return;
+  }
+  const dates=new Map();
+  for (const {fecha,tipo,total} of rows) {
+    if (!dates.has(fecha)) dates.set(fecha,new Map());
+    dates.get(fecha).set(tipo,total);
+  }
+  const max=Math.max(...Array.from(dates.values(),counts=>Array.from(counts.values()).reduce((sum,n)=>sum+n,0)));
+  root.innerHTML='<ul class="activity-legend">'+types.map(([type,label])=>
+    '<li><span class="key '+type+'"></span>'+label+'</li>').join('')+'</ul><ul class="activity-days"></ul>';
+  const list=root.querySelector('.activity-days');
+
+  for (const [date,counts] of dates) {
+    const item=document.createElement('li');
+    const caption=document.createElement('time');
+    caption.dateTime=date;
+    caption.textContent=date.slice(8)+'/'+date.slice(5,7);
+    const track=document.createElement('div');
+    track.className='activity-track';
+    track.setAttribute('aria-hidden','true');
+    const values=document.createElement('span');
+    values.className='activity-values';
+    values.textContent=types.filter(([type])=>counts.has(type)).map(([type,label])=>label+': '+counts.get(type)).join(' · ');
+    for (const [type] of types) {
+      const count=counts.get(type)??0;
+      if (!count) continue;
+      const segment=document.createElement('span');
+      segment.className=type;
+      segment.style.width=count/max*100+'%';
+      track.append(segment);
+    }
+    item.append(caption,track,values);
+    list.append(item);
+  }
+}

@@ -97,6 +97,11 @@ test('API, persistencia y reglas de inventario',async t=>{
     await call('/ordenes',201,{...oc,numero:'OC-FUERA',cantidad:179.999});
     assert.equal((await call('/ordenes/posibles-duplicados',200)).pares.some(p=>p.primera==='OC-1041'&&p.segunda==='OC-FUERA'),false);
   });
+  await t.test('actividad agrupada por fecha y tipo sin mezclar unidades',async()=>{
+    const rows=await call('/movimientos/actividad',200);
+    assert.deepEqual(rows.filter(r=>r.fecha==='2026-10-16').map(r=>[r.tipo,r.total]),[['ajuste',3],['entrada',1]]);
+    assert.equal(rows.find(r=>r.fecha==='2026-10-20' && r.tipo==='traslado').total,1);
+  });
   await t.test('validación y registro de materiales',async()=>{
     const b={codigo:'TEST',nombre:'Prueba',unidad:'kg',minimo:2,maximo:10,demanda:1,demanda_max:2,entrega:3};
     await call('/materiales',400,{...b,maximo:1});

@@ -3,6 +3,7 @@ import {api} from './api.js';
 const nf=new Intl.NumberFormat('es-CR',{maximumFractionDigits:3});
 const crc=new Intl.NumberFormat('es-CR',{style:'currency',currency:'CRC'});
 const escape=value=>String(value??'—').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char]);
+const normalize=value=>value.toLocaleLowerCase('es').normalize('NFD').replace(/\p{M}/gu,'');
 const title=(name,text)=>`<h1>${name}</h1><p>${text}</p>`;
 const options=(rows,key='nombre')=>rows.map(r=>`<option value="${r.id}">${escape(r[key])}</option>`).join('');
 const select=(label,name,rows,key)=>`<label>${label}<select data-number name="${name}" required><option value="">Selecciona</option>${options(rows,key)}</select></label>`;
@@ -33,7 +34,6 @@ export async function stock(user) {
     const search=root.querySelector('#search');
     const state=root.querySelector('#stock-state');
     const count=root.querySelector('#stock-count');
-    const normalize=value=>value.toLocaleLowerCase('es').normalize('NFD').replace(/\p{M}/gu,'');
     const render=()=>{
       const query=normalize(search.value.trim());
       const visible=rows.filter(row=>{
@@ -121,9 +121,29 @@ export async function orders(user) {
       ${table(['Primera OC','Segunda OC','Proveedor','Material','Cantidades'],report.pares.map(r=>[
         r.primera+' · '+r.fecha_primera,r.segunda+' · '+r.fecha_segunda,r.proveedor,r.material,
         nf.format(r.cantidad_primera)+' / '+nf.format(r.cantidad_segunda)]),'Sin coincidencias.')}</section>
-      <section class="panel"><h2>Historial de órdenes</h2>${table(['OC','Fecha','Área','Proveedor','Material','Cantidad','Precio unitario'],
-        rows.map(r=>[r.numero,r.fecha,r.area,r.proveedor,r.articulo,nf.format(r.cantidad),crc.format(r.precio)]),'Sin órdenes.')}</section>`;
+      <section class="panel"><h2>Historial de órdenes</h2><div class="fields">
+        <label>Buscar orden<input type="search" id="order-search" placeholder="Número, área o material"></label>
+        <label>Proveedor<select id="order-supplier"><option value="">Todos los proveedores</option>${options(suppliers)}</select></label>
+      </div><p id="order-total" role="status"></p><div id="order-results"></div></section>`;
     if (user.rol!=='admin') root.querySelector('details').remove();
+    const search=root.querySelector('#order-search');
+    const supplier=root.querySelector('#order-supplier');
+    const total=root.querySelector('#order-total');
+    const results=root.querySelector('#order-results');
+    const render=()=>{
+      const provider=suppliers.find(item=>String(item.id)===supplier.value)?.nombre;
+      const query=normalize(search.value.trim());
+      const visible=rows.filter(row=>(!provider || row.proveedor===provider) &&
+        normalize([row.numero,row.area,row.articulo].join(' ')).includes(query));
+      const amount=visible.reduce((sum,row)=>sum+row.cantidad*row.precio,0);
+      total.textContent=nf.format(new Set(visible.map(row=>row.id)).size)+' órdenes · Total '+crc.format(amount);
+      results.innerHTML=table(['OC','Fecha','Área','Proveedor','Material','Cantidad','Precio unitario','Importe'],
+        visible.map(row=>[row.numero,row.fecha,row.area,row.proveedor,row.articulo,nf.format(row.cantidad),
+          crc.format(row.precio),crc.format(row.cantidad*row.precio)]),'No se encontraron órdenes.');
+    };
+    search.addEventListener('input',render);
+    supplier.addEventListener('change',render);
+    render();
   };
 }
 
